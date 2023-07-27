@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('cash_registers', function (Blueprint $table) {
             $table->id();
-            $table->date('date_cash_in')->default(new date());
+            $table->date('date_cash_in')->default(now());
             $table->date('date_cash_out');
             $table->decimal('entry_amount', 10, 2);
             $table->decimal('exit_amount', 10, 2);
