@@ -5,8 +5,8 @@ use App\Http\Controllers\Site\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('homepage');
+})->name('homepage');
 
 Route::prefix('/admin')->group( function () {
     Route::prefix('/employee')->group( function () {
@@ -28,3 +28,19 @@ Route::prefix('/admin')->group( function () {
         Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
     });
 });
+
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
