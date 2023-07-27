@@ -13,7 +13,8 @@
     <!-- Your navigation bar code here -->
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/employees">Employees</a></li>
+        <li><a href="{{route('employees.index')}}">Employees</a></li>
+        <li><a href="{{route('customers.index')}}">Customers</a></li>
     </ul>
 </nav>
 
