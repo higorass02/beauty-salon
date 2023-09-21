@@ -77,3 +77,9 @@ php artisan key:generate
 
 Acessar o projeto
 [http://localhost:8989](http://localhost:8989)
+
+
+//
+apt update
+apt install nodejs
+apt install npm

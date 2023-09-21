@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\ApiCustomerController;
+use App\Http\Controllers\Api\ApiEmployeeController;
+use App\Http\Controllers\Api\ApiServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('/customer', ApiCustomerController::class);
+        Route::apiResource('/employee', ApiEmployeeController::class);
+        Route::apiResource('/service', ApiServiceController::class);
+    });   
 });
+
