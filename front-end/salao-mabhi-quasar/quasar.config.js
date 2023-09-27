@@ -28,7 +28,6 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
-
       'axios'
     ],
 
@@ -61,9 +60,9 @@ module.exports = configure(function (ctx) {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
         API_URL: ctx.dev
-          ? 'http://localhost:3000/'
-          : 'http://URL-PROD:3000/'
-      },
+          ? 'http://localhost:8989/api/v1'
+          : 'http://localhost:3000/'
+      }
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -90,7 +89,7 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      port:9000,
+      port: 9000,
       open: true // opens browser window automatically
     },
 
@@ -109,7 +108,10 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify',
+        'Dialog'
+      ]
     },
 
     // animations: 'all', // --- includes all animations

@@ -19,11 +19,11 @@ use App\Http\Controllers\Api\ApiServiceController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
-
-    Route::middleware('auth:sanctum')->group(function () {
+    //middleware('auth:sanctum')
+    Route::name('api')->group(function () {
         Route::apiResource('/customer', ApiCustomerController::class);
         Route::apiResource('/employee', ApiEmployeeController::class);
         Route::apiResource('/service', ApiServiceController::class);
-    });   
+    });
 });
 

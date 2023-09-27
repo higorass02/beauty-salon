@@ -11,9 +11,7 @@ class ApiCustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return response()->json([
-            'data' => $customers
-        ]);
+        return response()->json( $customers );
     }
 
     public function store(Request $request)
@@ -58,7 +56,7 @@ class ApiCustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        
+
         return response()->json([
             'message' => 'Customer deleted successfully!',
             'data' => $customer
