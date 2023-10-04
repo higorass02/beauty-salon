@@ -10,7 +10,6 @@
   <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
     <q-list>
       <q-item-label header> Menus </q-item-label>
-
       <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
     </q-list>
   </q-drawer>
@@ -21,10 +20,22 @@ import EssentialLink from 'src/components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'Teste link',
+    title: 'Home',
     caption: '',
     icon: 'home',
-    route: { name: 'home' }
+    route: { name: 'homePage' }
+  },
+  {
+    title: 'Clientes',
+    caption: '',
+    icon: 'people',
+    route: { name: 'customer' }
+  },
+  {
+    title: 'Serviços',
+    caption: '',
+    icon: 'work',
+    route: { name: 'service' }
   }
 ]
 

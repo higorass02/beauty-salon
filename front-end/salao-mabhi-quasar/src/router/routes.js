@@ -3,7 +3,7 @@ const routes = [
     path: '/login',
     component: () => import('layouts/Login/layoutLogin.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('src/pages/Login/index.vue') }
+      { path: '', name: 'login', component: () => import('src/pages/Login/index.vue') }
     ]
   },
 
@@ -14,11 +14,11 @@ const routes = [
     component: () => import('pages/ErrorNotFound.vue')
   },
   {
-    path: '/',
+    path: '',
     name: 'home',
     component: () => import('layouts/Home.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('src/pages/Home/home.vue') }
+      { path: '', name: 'homePage', component: () => import('src/pages/Home/home.vue') }
     ]
   },
   {
@@ -28,6 +28,16 @@ const routes = [
       { path: '', name: 'customer', component: () => import('src/pages/Customer/ListCustomerPage.vue') },
       { path: 'novo', name: 'formCustomer', component: () => import('src/pages/Customer/FormCustomerPage.vue') },
       { path: ':id/edit', name: 'formEditCustomer', component: () => import('src/pages/Customer/FormEditCustomerPage.vue') }
+    ]
+  },
+  {
+    path: '/service',
+    name: 'service',
+    component: () => import('layouts/Home.vue'),
+    children: [
+      { path: '', name: 'serviceList', component: () => import('src/pages/Services/ListServicePage.vue') },
+      { path: 'novo', name: 'createService', component: () => import('src/pages/Services/CreateServicePage.vue') },
+      { path: ':id/edit', name: 'editService', component: () => import('src/pages/Services/EditServicePage.vue') }
     ]
   }
 ]
