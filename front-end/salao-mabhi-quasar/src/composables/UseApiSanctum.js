@@ -4,7 +4,15 @@ export default function UseApiSanctum (url) {
   const list = async () => {
     try {
       const response = await api.get(url)
-      console.log(response.data)
+      return response.data
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  const findOne = async (id) => {
+    try {
+      const response = await api.get(`${url}/${id}`)
       return response.data
     } catch (error) {
       throw new Error(error)
@@ -42,6 +50,7 @@ export default function UseApiSanctum (url) {
     list,
     post,
     update,
-    remove
+    remove,
+    findOne
   }
 }

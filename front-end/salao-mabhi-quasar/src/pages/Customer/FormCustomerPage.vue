@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md q-pa-md">
       <q-input
         filled
         v-model="form.name"
@@ -33,7 +33,6 @@
       />
 
       <div class="col-lg-12 q-gutter-sm">
-        <q-btn label="Cancelar" color="red" class="float-right" :to="{ name: 'home' }" />
         <q-btn
           label="Salvar"
           color="primary"
@@ -41,6 +40,7 @@
           icon="save"
           type="submit"
         />
+        <q-btn label="Cancelar" type="reset" color="red" class="float-right"/>
       </div>
     </q-form>
   </q-page>
@@ -69,8 +69,12 @@ export default {
     }
 
     const onSubmit = async () => {
+      $q.loading.show({
+        message: 'Inserindo Cliente na base de dados...'
+      })
       try {
         await post(form.value)
+        $q.loading.hide()
         $q.notify({
           color: 'green-3',
           textColor: 'white',

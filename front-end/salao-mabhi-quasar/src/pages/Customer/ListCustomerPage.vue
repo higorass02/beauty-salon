@@ -1,26 +1,48 @@
 <template>
-  <q-page :style-fn="myTweak" padding>
-    <q-table title="Clientes" :rows="posts" :columns="columns" row-key="name">
+  <q-page padding>
+    <div v-if="!load">
+      <q-table title="Clientes" :rows="posts" :columns="columns" row-key="name">
+        <template v-slot:top>
+          <span class="text-h5">Clientes</span>
+          <q-space />
+          <q-btn color="primary" label="Novo" :to="{ name: 'formCustomer' }" />
+        </template>
 
-      <template v-slot:top>
-        <span class="text-h5">Clientes</span>
-        <q-space />
-        <q-btn color="primary" label="Novo" :to="{ name: 'formCustomer' }" />
-      </template>
-
-      <template v-slot:body-cell-actions="props">
-        <q-td :props="props">
-          <q-btn
-            push
-            color="negative"
-            dense
-            size="sm"
-            icon="delete"
-            @click="handleDeleteCustomer(props.row.id)"
-          />
-        </q-td>
-      </template>
-    </q-table>
+        <template v-slot:body-cell-actions="props">
+          <q-td :props="props">
+            <q-btn
+              push
+              dense
+              color="primary"
+              size="md"
+              icon="edit"
+              @click="handleEditCustomer(props.row.id)"
+            />
+            <q-btn
+              push
+              dense
+              color="negative"
+              class="q-ml-sm"
+              size="md"
+              icon="delete"
+              @click="handleDeleteCustomer(props.row.id)"
+            />
+          </q-td>
+        </template>
+      </q-table>
+    </div>
+    <div v-if="load" align="center">
+      <q-circular-progress
+        indeterminate
+        size="50px"
+        :thickness="0.22"
+        rounded
+        color="primary"
+        track-color="grey-3"
+        class="q-ma-md"
+      />
+      <div class="text-h6">Carregando Clientes...</div>
+    </div>
   </q-page>
 </template>
 
@@ -33,6 +55,7 @@ export default {
   name: 'CustomerPage',
   setup () {
     const $q = useQuasar()
+    const load = ref(true)
     const posts = ref([])
     const { list, remove } = customerService()
 
@@ -73,6 +96,7 @@ export default {
     const getCustomers = async () => {
       try {
         posts.value = await list()
+        load.value = false
       } catch (error) {
         console.log(error)
       }
@@ -86,12 +110,18 @@ export default {
           cancel: true,
           persistent: true
         }).onOk(async () => {
+          $q.loading.show({
+            message: 'Deletando Cliente....'
+          })
           await remove(id)
-          getCustomers()
+          $q.loading.hide()
+          load.value = true
+          await getCustomers()
+          load.value = false
           $q.notify({
             color: 'green-3',
             textColor: 'white',
-            icon: 'success',
+            icon: 'check',
             message: 'Cliente deletado com sucesso!'
           })
         })
@@ -105,10 +135,16 @@ export default {
       }
     }
 
+    const handleEditCustomer = async (id) => {
+      window.location.href = '/customer/' + id + '/edit'
+    }
+
     return {
+      load,
       posts,
       columns,
-      handleDeleteCustomer
+      handleDeleteCustomer,
+      handleEditCustomer
     }
   }
 }
