@@ -48,7 +48,7 @@ export default {
     const date = ref('2023-10-03')
     const nameClient = ref('')
     const onSubmit = () => {
-      window.location.href = '/customer'
+      window.location.href = '/'
     }
     const onReset = () => {
       console.log('reset')

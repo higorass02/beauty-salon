@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ApiCustomerController;
 use App\Http\Controllers\Api\ApiEmployeeController;
 use App\Http\Controllers\Api\ApiServiceController;
+use App\Http\Controllers\Api\ApiAppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,6 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('/customer', ApiCustomerController::class);
         Route::apiResource('/employee', ApiEmployeeController::class);
         Route::apiResource('/service', ApiServiceController::class);
+        Route::apiResource('/appointment', ApiAppointmentController::class);
     });
 });
-
