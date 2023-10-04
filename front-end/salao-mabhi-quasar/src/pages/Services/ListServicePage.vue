@@ -5,7 +5,7 @@
         <template v-slot:top>
           <span class="text-h5">Serviços</span>
           <q-space />
-          <q-btn color="primary" label="Novo" :to="{ name: 'CreateService' }" />
+          <q-btn color="primary" label="Novo" :to="{ name: 'createService' }" />
         </template>
 
         <template v-slot:body-cell-actions="props">

@@ -21,7 +21,6 @@ class ApiEmployeeController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employees,email',
-            'password' => 'required|string|min:6',
         ]);
 
         $employees = Employee::create($data);
@@ -44,7 +43,6 @@ class ApiEmployeeController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employees,email',
-            'password' => 'required|string|min:6',
         ]);
 
         $employee->update($data);
@@ -58,7 +56,7 @@ class ApiEmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        
+
         return response()->json([
             'message' => 'Employee deleted successfully!',
             'data' => $employee

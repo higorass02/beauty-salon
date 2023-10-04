@@ -36,6 +36,12 @@ const linksList = [
     caption: '',
     icon: 'work',
     route: { name: 'service' }
+  },
+  {
+    title: 'Funcionários',
+    caption: '',
+    icon: 'assignment_ind',
+    route: { name: 'employee' }
   }
 ]
 

@@ -4,32 +4,23 @@
       <q-input
         filled
         v-model="form.name"
-        label="Nome do Cliente"
-        hint="Nome Completo"
+        label="Nome do serviço"
+        hint="Nome do serviço"
         lazy-rules
         :rules="[
-          (val) => (val && val.length > 0) || 'Por favor entre com o Nome Completo'
+          (val) => (val && val.length > 0) || 'Por favor entre com o Nome serviço'
         ]"
       />
 
       <q-input
         filled
-        type="phone"
-        v-model="form.phone"
-        label="Celular"
+        type="float"
+        v-model="form.price"
+        label="preço"
         lazy-rules
         :rules="[
-          (val) => (val !== null && val !== '') || 'Por favor entre com o celular'
+          (val) => (val !== null && val !== '') || 'Por favor entre com o preço'
         ]"
-      />
-
-      <q-input
-        filled
-        type="email"
-        v-model="form.email"
-        label="E-Mail"
-        lazy-rules
-        :rules="[(val) => (val !== null && val !== '') || 'Por favor entre com o E-mail']"
       />
 
       <div class="col-lg-12 q-gutter-sm">
@@ -49,28 +40,26 @@
 <script>
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
-import customerService from 'src/services/customers.js'
+import serviceService from 'src/services/services.js'
 
 export default {
   name: 'CreateServicePage',
   setup () {
     const $q = useQuasar()
-    const { post } = customerService()
+    const { post } = serviceService()
     const form = ref({
       name: '',
-      phone: '',
-      email: ''
+      price: ''
     })
 
     const onReset = (form) => {
       form.value.name = ''
-      form.value.phone = ''
-      form.value.email = ''
+      form.value.price = ''
     }
 
     const onSubmit = async () => {
       $q.loading.show({
-        message: 'Inserindo Cliente na base de dados...'
+        message: 'Inserindo serviço na base de dados...'
       })
       try {
         await post(form.value)
@@ -79,11 +68,11 @@ export default {
           color: 'green-3',
           textColor: 'white',
           icon: 'check',
-          message: 'Cliente Cadastrado com sucesso'
+          message: 'Serviço Cadastrado com sucesso'
         })
         $q.dialog({
           title: 'Novo Cadastro ?',
-          message: 'Deseja inserir outro cliente ?',
+          message: 'Deseja inserir outro serviço ?',
           ok: {
             push: true,
             label: 'Sim'
@@ -99,7 +88,7 @@ export default {
             onReset(form)
           })
           .onCancel(() => {
-            window.location.href = '/customer'
+            window.location.href = '/service'
           })
       } catch (error) {
         console.log(error)
@@ -107,7 +96,7 @@ export default {
           color: 'red-5',
           textColor: 'white',
           icon: 'check',
-          message: 'Erro ao cadastrar o cliente'
+          message: 'Erro ao cadastrar o serviço'
         })
       }
     }

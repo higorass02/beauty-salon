@@ -32,12 +32,20 @@ const routes = [
   },
   {
     path: '/service',
-    name: 'service',
     component: () => import('layouts/Home.vue'),
     children: [
-      { path: '', name: 'serviceList', component: () => import('src/pages/Services/ListServicePage.vue') },
+      { path: '', name: 'service', component: () => import('src/pages/Services/ListServicePage.vue') },
       { path: 'novo', name: 'createService', component: () => import('src/pages/Services/CreateServicePage.vue') },
       { path: ':id/edit', name: 'editService', component: () => import('src/pages/Services/EditServicePage.vue') }
+    ]
+  },
+  {
+    path: '/employee',
+    component: () => import('layouts/Home.vue'),
+    children: [
+      { path: '', name: 'employee', component: () => import('src/pages/Employees/ListEmployeePage.vue') },
+      { path: 'novo', name: 'createEmployee', component: () => import('src/pages/Employees/CreateEmployeePage.vue') },
+      { path: ':id/edit', name: 'editEmployee', component: () => import('src/pages/Employees/EditEmployeePage.vue') }
     ]
   }
 ]
