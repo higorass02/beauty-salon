@@ -5,22 +5,11 @@
         <q-input
           filled
           v-model="form.name"
-          label="Nome do Cliente"
-          hint="Nome Completo"
+          label="Nome do funcionário"
+          hint="Nome do funcionário"
           lazy-rules
           :rules="[
-            (val) => (val && val.length > 0) || 'Por favor entre com o Nome Completo'
-          ]"
-        />
-
-        <q-input
-          filled
-          type="phone"
-          v-model="form.phone"
-          label="Celular"
-          lazy-rules
-          :rules="[
-            (val) => (val !== null && val !== '') || 'Por favor entre com o celular'
+            (val) => (val && val.length > 0) || 'Por favor entre com o Nome do funcionário'
           ]"
         />
 
@@ -28,7 +17,7 @@
           filled
           type="email"
           v-model="form.email"
-          label="E-Mail"
+          label="E-mail"
           lazy-rules
           :rules="[
             (val) => (val !== null && val !== '') || 'Por favor entre com o E-mail'
@@ -53,19 +42,18 @@
 <script>
 import { ref, onMounted } from 'vue'
 import { useQuasar } from 'quasar'
-import customerService from 'src/services/customers.js'
+import employeeService from 'src/services/employees.js'
 import { useRoute } from 'vue-router'
 
 export default {
-  name: 'FormCustomerPage',
+  name: 'EditEmployeePage',
   setup () {
     const $q = useQuasar()
     const route = useRoute()
-    const { findOne, update } = customerService()
+    const { findOne, update } = employeeService()
     const form = ref({
       id: 0,
       name: '',
-      phone: '',
       email: ''
     })
 
@@ -75,7 +63,6 @@ export default {
 
     const onReset = (form) => {
       form.value.name = ''
-      form.value.phone = ''
       form.value.email = ''
     }
 
@@ -84,14 +71,13 @@ export default {
       const data = await findOne(route.params.id)
       const dataClient = data.data
       form.value.name = dataClient.name
-      form.value.phone = dataClient.phone
       form.value.email = dataClient.email
       $q.loading.hide()
     })
 
     const onSubmit = async () => {
       $q.loading.show({
-        message: 'Editando Cliente na base de dados ...'
+        message: 'Editando funcionário na base de dados ...'
       })
       try {
         await update(form.value)
@@ -100,10 +86,10 @@ export default {
           color: 'green-3',
           textColor: 'white',
           icon: 'check',
-          message: 'Cliente editado com sucesso!'
+          message: 'funcionário editado com sucesso!'
         })
         setTimeout(() => {
-          window.location.href = '/customer'
+          window.location.href = '/employee'
         }, 500)
       } catch (error) {
         console.log(error)
@@ -111,7 +97,7 @@ export default {
           color: 'red-5',
           textColor: 'white',
           icon: 'check',
-          message: 'Erro ao cadastrar o cliente'
+          message: 'Erro ao cadastrar o funcionário'
         })
       }
     }

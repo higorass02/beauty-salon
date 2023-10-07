@@ -26,6 +26,12 @@ const linksList = [
     route: { name: 'homePage' }
   },
   {
+    title: 'Agendamentos',
+    caption: '',
+    icon: 'calendar_month',
+    route: { name: 'appointment' }
+  },
+  {
     title: 'Clientes',
     caption: '',
     icon: 'people',

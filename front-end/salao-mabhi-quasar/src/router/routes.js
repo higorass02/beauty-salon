@@ -47,6 +47,15 @@ const routes = [
       { path: 'novo', name: 'createEmployee', component: () => import('src/pages/Employees/CreateEmployeePage.vue') },
       { path: ':id/edit', name: 'editEmployee', component: () => import('src/pages/Employees/EditEmployeePage.vue') }
     ]
+  },
+  {
+    path: '/appointment',
+    component: () => import('layouts/Home.vue'),
+    children: [
+      { path: '', name: 'appointment', component: () => import('src/pages/appointments/ListAppointmentPage.vue') },
+      { path: 'novo', name: 'createAppointment', component: () => import('src/pages/appointments/CreateAppointmentPage.vue') },
+      { path: ':id/edit', name: 'editAppointment', component: () => import('src/pages/appointments/EditAppointmentPage.vue') }
+    ]
   }
 ]
 
