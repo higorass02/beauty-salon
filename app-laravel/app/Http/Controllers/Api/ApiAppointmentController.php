@@ -15,9 +15,9 @@ class ApiAppointmentController extends Controller
 {
     public function index()
     {
-        $apponintment = Appointment::all();
+        $appointment = Appointment::all();
         return response()->json([
-            'data' => $apponintment
+            'data' => $appointment
         ]);
     }
 
@@ -64,11 +64,11 @@ class ApiAppointmentController extends Controller
             $this->validateExists($data);
             $this->validateData($data);
 
-            $apponintment = Appointment::create($data);
+            $appointment = Appointment::create($data);
 
             return response()->json([
                 'message' => 'Appointment created successfully!',
-                'data' => $apponintment
+                'data' => $appointment
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -77,14 +77,14 @@ class ApiAppointmentController extends Controller
         }
     }
 
-    public function show(Appointment $apponitment)
+    public function show(Appointment $appointment)
     {
         return response()->json([
-            'data' => $apponitment
+            'data' => $appointment
         ]);
     }
 
-    public function update(Request $request, Appointment $apponitment)
+    public function update(Request $request, Appointment $appointment)
     {
         $data = $request->validate([
             'customer_id'=> 'required|integer',
@@ -97,21 +97,21 @@ class ApiAppointmentController extends Controller
         $this->validateExists($data);
         $this->validateData($data, true);
 
-        $apponitment->update($data);
+        $appointment->update($data);
 
         return response()->json([
             'message' => 'Appointment updated successfully!',
-            'data' => $apponitment
+            'data' => $appointment
         ]);
     }
 
-    public function destroy(Appointment $apponitment)
+    public function destroy(Appointment $appointment)
     {
-        $apponitment->delete();
+        $appointment->delete();
 
         return response()->json([
             'message' => 'Appointment deleted successfully!',
-            'data' => $apponitment
+            'data' => $appointment
         ]);
     }
 }

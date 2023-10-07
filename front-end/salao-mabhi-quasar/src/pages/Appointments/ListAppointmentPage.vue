@@ -46,7 +46,7 @@
         track-color="grey-3"
         class="q-ma-md"
       />
-      <div class="text-h6">Carregando Funcionários...</div>
+      <div class="text-h6">Carregando Agendamentos...</div>
     </div>
   </q-page>
 </template>
@@ -105,9 +105,26 @@ export default {
     const load = ref(false)
     // const posts = ref([])
     // const { list, remove } = serviceAppointment()
+    const events = ref([])
 
     onMounted(() => {
       /* getEmployee() */
+      events.value = [
+        {
+          id: 1,
+          title: 'My date',
+          details: 'Everything is funny as long as it is happening to someone else',
+          date: getCurrentDay(1),
+          bgcolor: 'orange'
+        },
+        {
+          id: 2,
+          title: 'My date 3',
+          details: 'Everything is funny as long as it is happening to someone else',
+          date: getCurrentDay(1),
+          bgcolor: 'red'
+        }
+      ]
     })
 
     const getCurrentDay = (day) => {
@@ -117,15 +134,6 @@ export default {
       return tm.date
     }
 
-    const events = [
-      {
-        id: 1,
-        title: '1st of the Month',
-        details: 'Everything is funny as long as it is happening to someone else',
-        date: getCurrentDay(1),
-        bgcolor: 'orange'
-      }
-    ]
     return {
       load,
       events,
