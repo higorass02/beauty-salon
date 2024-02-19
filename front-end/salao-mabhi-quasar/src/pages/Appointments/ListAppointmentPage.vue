@@ -54,7 +54,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 
-// import serviceAppointment from 'src/services/appointments.js'
+import appointmentsAppointment from 'src/services/appointments.js'
 // import { useQuasar } from 'quasar'
 import {
   QCalendarMonth,
@@ -75,7 +75,7 @@ export default {
     QCalendarMonth
   },
   computed: {
-    eventsMap () {
+    eventsMap() {
       const map = {}
       if (this.events.length > 0) {
         this.events.forEach((event) => {
@@ -96,23 +96,22 @@ export default {
           }
         })
       }
-      console.log(map)
+    //   console.log(map)
       return map
     }
   },
-  setup () {
+  setup() {
     // const $q = useQuasar()
     const load = ref(false)
-    // const posts = ref([])
-    // const { list, remove } = serviceAppointment()
+    const { list } = appointmentsAppointment()
     const events = ref([])
 
     onMounted(() => {
-      /* getEmployee() */
+      getAppointments()
       events.value = [
         {
           id: 1,
-          title: 'My date',
+          title: 'Renata',
           details: 'Everything is funny as long as it is happening to someone else',
           date: getCurrentDay(1),
           bgcolor: 'orange'
@@ -126,6 +125,29 @@ export default {
         }
       ]
     })
+
+    const formatAppointment = (data) => {
+        console.log(data)
+        const response = JSON.parse(JSON.stringify(data.value))
+        return events.value.push(response.map((e) => {
+            return {
+                id: e.id,
+                title: 'Serviço: ', // + e.service.name,
+                details: 'Cliente:', // + e.customer.name,
+                date: new Date(e.date_time),
+                bgcolor: 'red'
+            }
+        })
+        )
+    }
+
+    const getAppointments = async () => {
+    //   try {
+        formatAppointment(await list())
+    //   } catch (error) {
+    //     console.log('error')
+    //   }
+    }
 
     const getCurrentDay = (day) => {
       const newDay = new Date(CURRENT_DAY)
@@ -142,13 +164,13 @@ export default {
     }
   },
   methods: {
-    badgeClasses (event, type) {
+    badgeClasses(event, type) {
       return {
         [`text-white bg-${event.bgcolor}`]: true,
         'rounded-border': true
       }
     },
-    badgeStyles (day, event) {
+    badgeStyles(day, event) {
       const s = {}
       // s.left = day.weekday === 0 ? 0 : (day.weekday * this.parsedCellWidth) + '%'
       // s.top = 0
@@ -156,35 +178,35 @@ export default {
       // s.width = (event.days * this.parsedCellWidth) + '%'
       return s
     },
-    onToday () {
+    onToday() {
       this.$refs.calendar.moveToToday()
     },
-    onPrev () {
+    onPrev() {
       this.$refs.calendar.prev()
     },
-    onNext () {
+    onNext() {
       this.$refs.calendar.next()
     },
-    onMoved (data) {
-      console.log('onMoved', data)
+    onMoved(data) {
+    //   console.log('onMoved', data)
     },
-    onChange (data) {
-      console.log('onChange', data)
+    onChange(data) {
+    //   console.log('onChange', data)
     },
-    onClickDate (data) {
-      console.log('onClickDate', data)
+    onClickDate(data) {
+    //   console.log('onClickDate', data)
     },
-    onClickDay (data) {
-      console.log('onClickDay', data)
+    onClickDay(data) {
+    //   console.log('onClickDay', data)
     },
-    onClickWorkweek (data) {
-      console.log('onClickWorkweek', data)
+    onClickWorkweek(data) {
+    //   console.log('onClickWorkweek', data)
     },
-    onClickHeadDay (data) {
-      console.log('onClickHeadDay', data)
+    onClickHeadDay(data) {
+    //   console.log('onClickHeadDay', data)
     },
-    onClickHeadWorkweek (data) {
-      console.log('onClickHeadWorkweek', data)
+    onClickHeadWorkweek(data) {
+    //   console.log('onClickHeadWorkweek', data)
     }
   }
 }
